@@ -1,49 +1,101 @@
-
-# Network Anomaly Detection using Machine Learning
+# Network Anomaly Detection using PCA and Clustering
 
 ## 📌 Objective
-To analyze network traffic data and detect anomalies that may indicate malicious activity or system errors using data visualization and machine learning models.
+To detect anomalies in network traffic data using dimensionality reduction (PCA), clustering (DBSCAN), and classification (LOF, KNN, Random Forest) techniques.
 
-## 📈 Dataset Overview
-- A CSV file (`network_traffic.csv`) contains time-based network traffic records.
-- Columns include: `Timestamp`, `Packets`, `Bytes`, `Source`, `Destination`, and `Label` (Normal/Anomalous).
+---
 
-## ⚙️ Technologies Used
-- **Python**
-- **Libraries**: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn
-- **Tools**: Jupyter Notebook, VS Code
+## 📁 Dataset
+- File used: `all_data.csv`
+- Columns include categorical and numerical features with a target column named `class`.
 
-## 🔬 Exploratory Data Analysis (EDA)
-Using **Seaborn** and **Matplotlib**, the following visualizations were generated:
-- **Lineplot of Packets over Time**: to understand traffic trends.
-- **Distribution plots** for packets and bytes.
-- **Countplot** for normal vs anomalous traffic.
-- **Heatmap** for feature correlation.
+---
 
-These visualizations helped identify outliers, correlations, and imbalance in class distribution.
+## 🛠️ Tools & Technologies
+- **Language**: Python
+- **Libraries**: NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn
+- **Models Used**:
+  - DBSCAN (for clustering)
+  - Local Outlier Factor (LOF)
+  - K-Nearest Neighbors (KNN)
+  - Random Forest Classifier
 
-## 🧠 Model Training
-- Target variable: `Label` (Normal or Anomalous)
-- **Features** selected after dropping non-numeric and irrelevant ones.
-- **Train/Test Split**: 80% training, 20% testing
-- Model Used: **RandomForestClassifier**
-- **Evaluation Metrics**:
-  - Accuracy Score
-  - Confusion Matrix
-  - Classification Report (Precision, Recall, F1)
+---
 
-## 🧪 Results
-- The model achieved good performance in classifying anomalies.
-- Visualizations confirmed class imbalance and helped interpret model results.
+## 🔍 Process Overview
 
-## 📊 Sample Visualizations
-Plots saved using `plt.savefig()`:
-- `lineplot_packets.png`
-- `distribution_packets.png`
-- `distribution_bytes.png`
-- `traffic_label_countplot.png`
-- `correlation_heatmap.png`
+### 1. **Data Preprocessing**
+- Loaded CSV file.
+- Checked for nulls and class distribution.
+- Visualized feature distributions using `hist()`.
 
-These can be viewed in the repo under the `/plots` folder (if uploaded).
+### 2. **Encoding and Scaling**
+- Encoded target class using `OrdinalEncoder`.
+- Scaled entire dataset using `StandardScaler`.
 
-## 📁 Folder Structure
+### 3. **Dimensionality Reduction**
+- Applied PCA to retain 95% of the variance.
+- Reduced dimensions used for clustering and visualization.
+
+### 4. **Clustering (DBSCAN)**
+- Applied DBSCAN to detect outliers/anomalies.
+- Cluster labels were added as a new column `type`.
+- Label `-1` was converted to "anomalous", others to "normal".
+
+### 5. **Data Visualization**
+- Countplot of normal vs. anomalous points.
+- Scatter plot of PCA components color-coded by anomaly type.
+
+### 6. **Model Building**
+#### a. Local Outlier Factor (LOF)
+- Used `novelty=True` and `contamination=0.013`
+- Accuracy computed on test data.
+
+#### b. Random Forest (Tested on Iris dataset as demonstration)
+- Trained and evaluated using classification report and confusion matrix.
+
+#### c. K-Nearest Neighbors
+- Trained on split data.
+- Accuracy, confusion matrix, and classification report printed.
+
+#### d. Cross-Validation
+- Performed 5-fold cross-validation on KNN.
+- Reported average accuracy.
+
+---
+
+## 📊 Evaluation Metrics
+- **Accuracy Score**
+- **Confusion Matrix**
+- **Classification Report**
+- **F1 Score**
+- **Normalized Confusion Matrix**
+
+---
+
+## 📌 Improvements to be Made
+- Train Random Forest on actual anomaly detection dataset instead of the Iris dataset.
+- Save plots using `plt.savefig()` to include in the GitHub repository.
+- Improve class balance via oversampling or SMOTE.
+- Implement real-time data stream detection (Kafka, PySpark).
+
+---
+
+## 📷 Screenshots
+You can add screenshots of:
+- Confusion matrix
+- Countplots
+- PCA scatterplots
+
+(Add them in a `/plots` folder and reference like `![Confusion Matrix](plots/confusion_matrix.png)`)
+
+---
+
+## 👤 Author
+- **Your Name**
+- [LinkedIn Profile] | [GitHub Profile] | [Portfolio Link]
+
+---
+
+## 📄 License
+This project is open-source and available under the [MIT License](LICENSE).
