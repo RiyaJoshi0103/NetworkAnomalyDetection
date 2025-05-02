@@ -91,11 +91,3 @@ You can add screenshots of:
 
 ---
 
-## 👤 Author
-- **Your Name**
-- [LinkedIn Profile] | [GitHub Profile] | [Portfolio Link]
-
----
-
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
